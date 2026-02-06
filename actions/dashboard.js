@@ -10,6 +10,8 @@ const serializeTransaction = (obj) => {
   if (obj.balance) {
     serialized.balance = obj.balance.toNumber();
   }
+
+  return serialized;
 };
 
 export async function createAccount(data) {
