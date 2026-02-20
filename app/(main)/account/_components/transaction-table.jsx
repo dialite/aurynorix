@@ -233,6 +233,25 @@ const TransactionTable = ({ transactions }) => {
     }
   };
 
+  const handleSingleDelete = async (id) => {
+    if (!window.confirm("Are you sure you want to delete this transaction?")) {
+      return;
+    }
+
+    try {
+      await deleteFn({ ids: [id] });
+
+      setLocalTransactions((prev) => prev.filter((t) => t.id !== id));
+
+      setSelectedIds((prev) => prev.filter((sid) => sid !== id));
+
+      toast.success("Transaction deleted successfully");
+      router.refresh();
+    } catch {
+      toast.error("Failed to delete transaction");
+    }
+  };
+
   useEffect(() => {
     setLocalTransactions(transactions);
   }, [transactions]);
@@ -504,7 +523,7 @@ const TransactionTable = ({ transactions }) => {
                           <DropdownMenuSeparator />
                           <DropdownMenuItem
                             className="text-destructive"
-                            onClick={() => deleteFn([transaction.id])}
+                            onClick={() => handleSingleDelete(transaction.id)}
                           >
                             Delete
                           </DropdownMenuItem>
