@@ -58,7 +58,7 @@ export async function getCurrentBudget(accountId) {
         : 0,
     };
   } catch (error) {
-    console.log("Error fetching budget", error);
+    console.error("Error fetching budget", error);
     throw error;
   }
 }
@@ -95,7 +95,7 @@ export async function updateBudget(amount) {
       data: { ...budget, amount: budget.amount.toNumber() },
     };
   } catch (error) {
-    console.log("Error updating budget", error);
+    console.error("Error updating budget", error);
     return { success: false, error: error.message };
   }
 }
